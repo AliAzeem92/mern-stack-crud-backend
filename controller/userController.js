@@ -7,11 +7,16 @@ export const create = async (req, res) => {
 
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ message: "User already exists" });
+      return res
+        .status(400)
+        .json({
+          message:
+            "This email is already registered. Please use a different email.",
+        });
     }
     const savedData = await newUser.save();
     // res.status(200).json(savedData);
-    res.status(200).json({message: "User created successfully"});
+    res.status(200).json({ message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
   }
@@ -53,7 +58,7 @@ export const updateUser = async (req, res) => {
       new: true,
     });
     // res.status(200).json(updatedUserData);
-    
+
     res.status(200).json({ message: "User Updated successfully" });
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
